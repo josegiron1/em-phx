@@ -6,6 +6,7 @@ defmodule EventMonitoring.Events.Event do
     field :name, :string
     field :params, :map
     belongs_to :user, EventMonitoring.Accounts.User
+    belongs_to :project, EventMonitoring.Projects.Project
 
     timestamps()
   end

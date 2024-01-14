@@ -4,6 +4,7 @@ defmodule EventMonitoring.Projects.Project do
 
   schema "projects" do
     field :name, :string
+    belongs_to :user, EventMonitoring.Accounts.User
 
     timestamps()
   end

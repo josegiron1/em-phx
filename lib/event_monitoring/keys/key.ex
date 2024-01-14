@@ -14,8 +14,8 @@ defmodule EventMonitoring.Keys.Key do
   @doc false
   def changeset(key, attrs) do
     key
-    |> cast(attrs, [:id, :public, :private, :event_id, :user_id])
-    |> validate_required([:id, :public, :private, :event_id, :user_id])
+    |> cast(attrs, [:id, :public, :private, :project_id, :user_id])
+    |> validate_required([:id, :public, :private, :project_id, :user_id])
     |> unique_constraint(:id)
   end
 

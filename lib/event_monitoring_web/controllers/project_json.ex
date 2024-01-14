@@ -18,7 +18,8 @@ defmodule EventMonitoringWeb.ProjectJSON do
   defp data(%Project{} = project) do
     %{
       id: project.id,
-      name: project.name
+      name: project.name,
+      user_id: project.user_id,
     }
   end
 end

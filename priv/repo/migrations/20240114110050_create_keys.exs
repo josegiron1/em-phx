@@ -4,7 +4,8 @@ defmodule EventMonitoring.Repo.Migrations.CreateKeys do
   def change do
     create table(:keys) do
       add :public, :string
-      add :private, :string
+      add :private, :binary
+      add :salt, :binary
       add :project_id, references(:projects, on_delete: :nothing), null: false
       add :user_id, references(:users, on_delete: :nothing), null: false
 
