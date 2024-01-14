@@ -21,6 +21,9 @@ defmodule EventMonitoringWeb.Router do
   # Other scopes may use custom stacks.
   # scope "/api", EventMonitoringWeb do
   #   pipe_through :api
+
+  #   resources "/events", EventController, except: [:new, :edit]
+  #   resources "/keys", KeyController, except: [:new, :edit]
   # end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
