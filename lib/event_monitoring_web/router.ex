@@ -65,6 +65,7 @@ defmodule EventMonitoringWeb.Router do
     live_session :require_authenticated_user,
       on_mount: [{EventMonitoringWeb.UserAuth, :ensure_authenticated}] do
       live "/dashboard", DashboardLive, :index
+      live "/settings", SettingsLive, :index
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end
@@ -82,5 +83,11 @@ defmodule EventMonitoringWeb.Router do
       live "/users/confirm/:token", UserConfirmationLive, :edit
       live "/users/confirm", UserConfirmationInstructionsLive, :new
     end
+  end
+
+  scope "/api", EventMonitoringWeb do
+    pipe_through :api
+
+    resources "/events", EventController, except: [:new, :edit]
   end
 end

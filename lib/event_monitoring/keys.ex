@@ -4,6 +4,7 @@ defmodule EventMonitoring.Keys do
   """
 
   import Ecto.Query, warn: false
+  alias Hex.API.Key
   alias EventMonitoring.Repo
 
   alias EventMonitoring.Keys.Key
@@ -17,9 +18,10 @@ defmodule EventMonitoring.Keys do
       [%Key{}, ...]
 
   """
-  def list_keys do
-    Repo.all(Key)
+  def list_keys(userId) do
+    Repo.all(from k in Key, where: k.user_id == ^userId)
   end
+
 
   @doc """
   Gets a single key.
@@ -50,6 +52,9 @@ defmodule EventMonitoring.Keys do
 
   """
   def create_key(attrs \\ %{}) do
+    key_salt = Key.generate_key()
+    attrs = Map.put(attrs, :private, key_salt[:private])
+    attrs = Map.put(attrs, :salt, key_salt[:salt])
     %Key{}
     |> Key.changeset(attrs)
     |> Repo.insert()

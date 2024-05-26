@@ -10,8 +10,8 @@ defmodule EventMonitoringWeb.UserSettingsLive do
       <:subtitle>Manage your account email address and password settings</:subtitle>
     </.header>
 
-    <div class="space-y-12 divide-y">
-      <div>
+    <div class="flex flex-col items-center space-y-12 divide-y">
+      <div class="w-[500px]">
         <.simple_form
           for={@email_form}
           id="email_form"
@@ -33,7 +33,7 @@ defmodule EventMonitoringWeb.UserSettingsLive do
           </:actions>
         </.simple_form>
       </div>
-      <div>
+      <div class="w-[500px]">
         <.simple_form
           for={@password_form}
           id="password_form"

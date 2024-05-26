@@ -4,8 +4,7 @@ defmodule EventMonitoring.Keys.Key do
 
   schema "keys" do
     field :private, :binary
-    field :public, :string
-    belongs_to :project, EventMonitoring.Projects.Project
+    field :salt, :binary
     belongs_to :user, EventMonitoring.Accounts.User
 
     timestamps()
@@ -14,30 +13,33 @@ defmodule EventMonitoring.Keys.Key do
   @doc false
   def changeset(key, attrs) do
     key
-    |> cast(attrs, [:id, :public, :private, :project_id, :user_id])
-    |> validate_required([:id, :public, :private, :project_id, :user_id])
+    |> cast(attrs, [:id, :private, :user_id, :salt])
+    |> validate_required([:private, :user_id, :salt])
     |> unique_constraint(:id)
   end
 
   def generate_salt() do
     :crypto.strong_rand_bytes(32)
-    |> Base.encode16(case: :lower)
   end
 
   def generate_private() do
     :crypto.strong_rand_bytes(32)
   end
 
-  def encode_private(private) do
-    Base.encode64(private)
+  def  hashing(private, salt) do
+    :crypto.hash(:sha256, private <> salt)
   end
 
-  def  hashing(private) do
-    :crypto.hash(:sha256, private <> generate_salt()) |> Base.encode16()
+  def validate_private(private, stored_hash, salt) do
+    hashed_private = hashing(private, salt)
+    hashed_private == stored_hash
   end
 
-  def validate_private(private) do
-    private == encode_private(hashing(private))
+  def generate_key() do
+    private = generate_private()
+    salt = generate_salt()
+    hashed_private = hashing(private, salt)
+    %{private: Base.encode64(hashed_private), salt: salt}
   end
 
 end

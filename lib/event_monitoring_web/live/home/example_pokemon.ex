@@ -34,7 +34,7 @@ defmodule EventMonitoringWeb.HomeLive.Index do
 
   # def render(assigns) do
   #   ~H"""
-  #       <div>
+  #     <div>
   #     <h1>LiveView</h1>
   #     <p><%= @pokemon %></p>
   #     <.button phx-click="get_pokemon"> Get Pokemon </.button>

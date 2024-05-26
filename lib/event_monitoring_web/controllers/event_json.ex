@@ -18,7 +18,6 @@ defmodule EventMonitoringWeb.EventJSON do
   defp data(%Event{} = event) do
     %{
       id: event.id,
-      id: event.id,
       name: event.name,
       params: event.params
     }

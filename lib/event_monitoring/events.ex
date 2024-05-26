@@ -35,7 +35,24 @@ defmodule EventMonitoring.Events do
       ** (Ecto.NoResultsError)
 
   """
-  def get_event!(id), do: Repo.get!(Event, id)
+  def get_event!({:id, id}), do: Repo.get!(Event, id)
+
+  @doc """
+
+  Gets a single event by name.
+
+  Raises `Ecto.NoResultsError` if the Event does not exist.
+
+  ## Examples
+
+      iex> get_event!("name")
+      %Event{}
+
+      iex> get_event!("name")
+      ** (Ecto.NoResultsError)
+  """
+
+  def get_event!({:name, name}), do: Repo.get_by!(Event, name: name)
 
   @doc """
   Creates a event.

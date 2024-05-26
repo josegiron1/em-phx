@@ -6,9 +6,13 @@ defmodule EventMonitoringWeb.EventController do
 
   action_fallback EventMonitoringWeb.FallbackController
 
-  def index(conn, _params) do
-    events = Events.list_events()
-    render(conn, :index, events: events)
+  def index(conn, %{"name" => name}) do
+    with {:ok, %Event{} = event} <- Events.get_event!({:name, name}) do
+      conn |>
+      put_status(:ok)
+      |> put_resp_header("location", ~p"/api/events/#{event.name}")
+      |> render(conn, :show, event: event)
+    end
   end
 
   def create(conn, %{"event" => event_params}) do
@@ -40,4 +44,6 @@ defmodule EventMonitoringWeb.EventController do
       send_resp(conn, :no_content, "")
     end
   end
+
+
 end

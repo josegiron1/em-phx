@@ -164,4 +164,5 @@ defmodule EventMonitoringWeb.DashboardLive do
       </main>
     """
   end
+
 end
