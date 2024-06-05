@@ -7,7 +7,8 @@ defmodule EventMonitoringWeb.KeyController do
   action_fallback EventMonitoringWeb.FallbackController
 
   def index(conn, _params) do
-    keys = Keys.list_keys()
+    user_id = conn.assigns.current_user.id
+    keys = Keys.list_keys(user_id)
     render(conn, :index, keys: keys)
   end
 

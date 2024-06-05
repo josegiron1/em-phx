@@ -18,9 +18,7 @@ defmodule EventMonitoringWeb.KeyJSON do
   defp data(%Key{} = key) do
     %{
       id: key.id,
-      public: key.public,
       private: key.private,
-      project_id: key.project_id,
     }
   end
 end

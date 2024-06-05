@@ -14,8 +14,7 @@ defmodule EventMonitoring.Events.Event do
   @doc false
   def changeset(event, attrs) do
     event
-    |> cast(attrs, [:id, :name, :params, :user_id])
-    |> validate_required([:id, :name, :user_id])
-    |> unique_constraint(:id)
+    |> cast(attrs, [:name, :params, :user_id, :project_id])
+    |> validate_required([:name, :user_id, :project_id])
   end
 end

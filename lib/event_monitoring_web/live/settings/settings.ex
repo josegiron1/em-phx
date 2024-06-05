@@ -51,7 +51,6 @@ defmodule EventMonitoringWeb.SettingsLive do
         <.button  phx-click="generate_key"> Generate Key </.button>
       </div>
     </div>
-
     """
   end
 end

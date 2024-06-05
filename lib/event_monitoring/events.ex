@@ -7,6 +7,8 @@ defmodule EventMonitoring.Events do
   alias EventMonitoring.Repo
 
   alias EventMonitoring.Events.Event
+  alias EventMonitoring.Keys.Key
+  alias EventMonitoring.Keys
 
   @doc """
   Returns the list of events.
@@ -67,6 +69,20 @@ defmodule EventMonitoring.Events do
 
   """
   def create_event(attrs \\ %{}) do
+    keys = Keys.list_keys(attrs["user_id"])
+
+    if Enum.empty?(keys) do
+      {:error, "No key in this account"}
+    end
+
+    key_validated = Enum.find(keys, fn x -> Key.validate_private(attrs["key"], x.private, x.salt) end)
+
+    IO.inspect("lost")
+    IO.inspect(key_validated)
+
+    attrs = Keyword.delete(attrs, :key)
+
+
     %Event{}
     |> Event.changeset(attrs)
     |> Repo.insert()

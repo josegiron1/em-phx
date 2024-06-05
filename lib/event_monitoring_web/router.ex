@@ -66,6 +66,7 @@ defmodule EventMonitoringWeb.Router do
       on_mount: [{EventMonitoringWeb.UserAuth, :ensure_authenticated}] do
       live "/dashboard", DashboardLive, :index
       live "/settings", SettingsLive, :index
+      live "/projects", ProjectsLive, :index
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end
